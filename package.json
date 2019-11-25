@@ -1,0 +1,27 @@
+{
+  "name": "nodejs_module",
+  "version": "1.0.0",
+  "description": "package manager for refactory nodejs module",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "nodemon index.js"
+  },
+  "author": "Kalule Kevin K",
+  "license": "ISC",
+  "dependencies": {
+    "busboy-body-parser": "^0.3.2",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.10",
+    "multer": "^1.4.2",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {
+    "bcrypt": "^3.0.7",
+    "express-back": "0.0.2",
+    "express-session": "^1.17.0",
+    "jest": "^24.9.0",
+    "jest-cli": "^24.9.0",
+    "nodemon": "^1.19.4"
+  }
+}

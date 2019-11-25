@@ -1,0 +1,108 @@
+body {
+    /* background: red; */
+    margin-bottom: 10%;
+    background: #fff;
+}
+
+.test_form {
+    /* display:none; */
+}
+
+.success_div {
+    padding:5%;
+    font-size:110%;
+    border-radius:2.5%;
+}
+
+.header {
+    /* color: red; */
+    padding : 2% 0% 2% 0%;
+    background-color:#343a40;
+    border-color: #454d55;
+}
+
+.page_title{
+    /* margin: 10% 0% 0% 5%; */
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 160%;
+    font-weight: 600;
+    color:white;
+}
+
+.register_question{
+
+    font-size: 130%;
+    color: indianred;
+}
+
+.user_header {
+
+    margin:5% 0%;
+    font-size: 170%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.error_messages{
+    /* padding : 1.5%; */
+}
+
+.profile_picture {
+
+    border:none;
+    width: 30%;
+
+    float:left;
+    margin-right:10%;
+}
+
+.user_name {
+
+    vertical-align: sub;
+}
+
+.table td{
+
+    vertical-align: middle !important;
+}
+
+/* -------------------- inner pages styles ----------------------*/
+.single_user_title{
+
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 250%;
+    font-weight: bolder;
+    color: dimgray;
+}
+
+.single_user_profile_image{
+
+
+}
+
+.users_details .row {
+
+    margin: 10% 2.5%;
+}
+
+.users_details h4  {
+
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 180%;
+    font-weight: 700;
+    color:slategray;
+}
+
+.users_details span , .users_details .row h4 span{
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size : 150%;
+    font-weight: lighter;
+}
+.footer {
+    width: 100%;
+    position: fixed;
+    z-index: 999;
+    bottom: 0;
+    min-height: 25px;
+    border-top: 3px solid black;
+}
