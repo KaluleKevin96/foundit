@@ -1,0 +1,61 @@
+extends ../layout
+
+block content
+
+        div.row.justify-content-center
+            div.col-md-6.card
+                header.card-header.header
+                    div.title
+                        h1(style="font-size:120%;") ADMINISTRATOR REGISTRATION
+
+                div.card-body.search_form    
+                    div.row
+                        div.col-md-12
+                            a.float-right.btn.btn-md.btn-outline-success(href="/administrators/all_administrators") Registered Administrators
+
+                    form(method="POST" action="/administrators/register_admin" )
+                        div.form-row
+                            span.form_section_title.text-center ABOUT THE ADMINISTRATOR
+                            br
+                            div.col-sm-5.form-group
+                                label First Name :
+                                input.form-control(name="first_name",type="text", placeholder=" eg.. John")
+                                                            
+                            div.col-sm-5.form-group
+                                label Last Name:
+                                input.form-control(name="last_name",type="text", placeholder="eg.. Doe")
+                            
+
+                        div.form-row
+                            span.form_section_title.text-center ADMINISTRATOR CONTACT INFORMATION
+                            br
+                           
+                            div.form-group.col-md-4    
+                                label Personal Email :
+                                input.form-control(type ="email",name ="email",placeholder="eg.. example@gmail.com")
+                                small.text-muted The email that person uses for communication
+                                
+                            div.form-group.col-md-3.offset-2
+                                label Personal Phone Contact:
+                                input.form-control(type="tel" name="phone_contact" placeholder="eg.. 0772123456")
+                                small.text-muted The phone contact that person uses for communication
+
+                        div.form-row
+                            span.form_section_title.text-center SECURITY CREDENTIALS        
+                            br                 
+                            div.form-group.col-md-4
+                                label Username:
+                                input.form-control(type="text" name="username" placeholder="eg.. username1234")
+
+                            div.col-md-4.offset-2
+                                div.form-group
+                                    label Associated Password:
+                                    input.form.form-control(type="password" name="password")
+                                
+                                div.form-group
+                                    label Confirm Password:
+                                    input.form.form-control(type="password" name="confirm_password")                        
+                 
+                        
+                        div.form-group
+                            input.btn.btn-success.btn-lg.ml-5(type="submit", value="Register Administrator")

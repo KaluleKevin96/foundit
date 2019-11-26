@@ -6,7 +6,7 @@ const path = require('path');
 const multer = require('multer');
 const bcrypt = require('bcrypt');//importing bcrypt module
 
-// importing the model that users shall use
+// importing the model that documents shall use
 const Document = require('../models/DocumentsModel');
 
 //setting destination path for files when uploaded

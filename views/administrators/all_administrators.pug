@@ -1,0 +1,48 @@
+extends ../layout
+
+block content
+
+        div.row.justify-content-center
+            div.col-md-10.card
+                header.card-header.header
+                    div.title
+                        h1(style="font-size:120%;") ALL REGISTERED ADMINISTRATORS
+
+                div.card-body
+                    div.row
+                        div.col-md-12
+                            a.float-right.btn.btn-md.btn-outline-primary(href="/administrators/register_administrator_form") Register New Administrator
+                    br
+                    div.table-responsive
+                        table.table.table-hover
+                            thead.thead-dark
+                                tr
+                                    th Admin No.
+                                    th Name
+                                    th Email
+                                    th Phone Contact
+                                    th Added On
+
+                            tbody
+                                each admin in all_administrators
+                                    tr
+                                        td #{admin.admin_id}
+                                        td #{admin.last_name} #{admin.first_name}
+                                        td #{admin.email}
+                                        td #{admin.phone_contact}
+                                        td #{admin.added_on}
+                                        td
+                                            a.btn.btn-md.mb-2(href="/administrators/view_administrator/"+ admin._id title="VIEW "+ admin.last_name+" "+admin.first_name) 
+                                                i.fa.fa-eye.fa-2x
+                                        td
+                                            a.btn.btn-md.btn-primary.mb-2(href="/administrators/edit_administrator_form/"+ admin._id title="EDIT "+ admin.last_name+" "+admin.first_name) 
+                                                i.fa.fa-edit
+                                        td
+                                            a.btn.btn-md.btn-danger.mb-2(href="/administrators/delete_administrator/"+ admin._id title="DELETE "+ admin.last_name+" "+admin.first_name) 
+                                                i.fa.fa-trash
+                                else
+                                    tr
+                                        td.text-center.text-danger(colspan = "5")
+                                            | NO ADMINISTRATORS HAVE BEEN REGISTERED
+                                            | <br/> <br/>
+                                            a.btn.btn-md.btn-primary(href="/administrators/register_administrator_form") Register A New Administrator
