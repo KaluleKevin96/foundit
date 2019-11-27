@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser'); //requiring the body parse package (module)
 const session = require('express-session'); //importing express session package
-
+const bcrypt = require('bcryptjs');
 const back = require('express-back'); //express back module 
 const multer = require('multer');
 const fs = require('fs'); //importing the files system 
@@ -14,7 +14,7 @@ const app = express();
 const mongoose = require('mongoose');
 
 //importing the Documents model 
-const User = require('./models/DocumentsModel');
+const User = require('./models/IndexModel');
 
 //MIDDLEWARES
 //defining what the app should use for the body parser
@@ -30,25 +30,6 @@ app.set('view engine', 'pug');
 //defining the 'public' folder to be static
 app.use(express.static(path.join(__dirname, 'public')));
 
-//middleware to tell the application to use session
-app.use(session({
-    secret : "super secret",
-    resave : true,
-    saveUninitialized : false
-}))
-
-app.use(back());
-
-//middleware to assign session user object to locals of the app
-app.use((req , res , next) => {
-
-    if(req.session.user){
-
-        app.locals.loggedin_user = req.session.user;
-    }
-
-    next();
-})
 
 //connect to databese
 mongoose.connect('mongodb://localhost:27017/found-it', { useNewUrlParser: true , useUnifiedTopology: true , useFindAndModify: false }, () => {
@@ -57,11 +38,13 @@ mongoose.connect('mongodb://localhost:27017/found-it', { useNewUrlParser: true ,
 
 
 //IMPORTING ROUTES 
-const documentRoute = require('./routes/documentRoutes');
+const IndexRoute = require('./routes/indexRoutes');
 
-//using the imported User Route
-app.use('/documents', documentRoute);
+//using the imported homepage Route
+app.use('/index', IndexRoute);
 
+const foundRoute = require('./routes/foundRoutes');
+app.use('/found_form', foundRoute);
 
 /* ------------------------- END OF MIDDLEWARE ----------------------------------------------------*
 
@@ -76,28 +59,28 @@ app.get('/', async(req, res) => {
    
 });
 
-app.get('/logout', (req, res) => {
+// app.get('/logout', (req, res) => {
 
-    if(req.session.user){
-        try{
+//     if(req.session.user){
+//         try{
 
-            req.session.destroy(() => {
+//             req.session.destroy(() => {
 
-                return res.redirect("/users/user_login");
-            });
+//                 return res.redirect("/users/user_login");
+//             });
     
 
-        }catch(err){
+//         }catch(err){
 
-            res.send("Failed to logout. \n " + err.toString())
+//             res.send("Failed to logout. \n " + err.toString())
 
-        }
+//         }
         
-    }else{
+//     }else{
 
-        return res.redirect("/users/user_login");
-    }
-});
+//         return res.redirect("/users/user_login");
+//     }
+// });
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 

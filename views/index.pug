@@ -1,5 +1,13 @@
-extends layout
-
-block content
+extends fanny_layout
+block appContent
     
-    h1 Hello World 
+    body 
+        div.container
+            div.row
+                div.col-lg-12
+                    h2.title An Easier Way To Recover Your Lost Documents
+            div.row.homepage-buttons
+                div.col-md-6
+                    a#lost.btn.btn-info.homepage-buttons(href="#") Have you Lost Something?
+                div.col-md-6
+                    a#found.btn.btn-danger.homepage-buttons(href="/found_form") Have you Found Something?
