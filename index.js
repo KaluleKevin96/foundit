@@ -15,6 +15,7 @@ const mongoose = require('mongoose');
 
 //importing the Documents model 
 const User = require('./models/IndexModel');
+const Document = require('./models/DocumentsModel');
 
 //MIDDLEWARES
 //defining what the app should use for the body parser
@@ -42,6 +43,18 @@ const IndexRoute = require('./routes/indexRoutes');
 
 //using the imported homepage Route
 app.use('/index', IndexRoute);
+const documentRoutes = require('./routes/documentRoutes');
+const poaRoutes = require('./routes/poaRoutes');
+const administratorRoutes = require('./routes/administratorRoutes');
+
+//using the imported Documents Route
+app.use('/documents', documentRoutes);
+
+//using the imported Point of access Routes
+app.use('/poa', poaRoutes);
+
+//using the imported Administrator Routes
+app.use('/administrators', administratorRoutes);
 
 const foundRoute = require('./routes/foundRoutes');
 app.use('/found_form', foundRoute);
@@ -55,7 +68,7 @@ app.get('/', async(req, res) => {
 
     //initial index function
 
-    res.render("index" , { title : "LOST AND FOUND"})
+    res.render("index" , { title : "FOUND-IT"})
    
 });
 
@@ -87,7 +100,7 @@ app.get('/', async(req, res) => {
 //error page handling for non existent paths
 app.get('*', (req, res) => {
 
-    res.send("<h1> ERROR!! ERROR!! <br/><br/> This Page Does Not Exist </h1>");
+    res.status(404).send();
     //<h1> ERROR!! ERROR!! <br/><br/> This Page Does Not Exist </h1>
 })
 

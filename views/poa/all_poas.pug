@@ -1,0 +1,52 @@
+extends ../layout
+
+block content
+
+        div.row.justify-content-center
+            div.col-md-10.card
+                header.card-header.header
+                    div.title
+                        h1(style="font-size:120%;") ALL REGISTERED POINTS OF ACCESS (P.O.A)
+
+                div.card-body
+                    div.row
+                        div.col-md-12
+                            a.float-right.btn.btn-md.btn-outline-primary(href="/poa/register_poa_form") Register New P.O.A
+                    br
+                    div.table-responsive
+                        table.table.table-hover
+                            thead.thead-dark
+                                tr
+                                    th P.O.A No.
+                                    th Name
+                                    th Location
+                                    th Email
+                                    th Official Contact
+                                    th Person In Charge (Attendant)
+                                    th Added On
+
+                            tbody
+                            each poa in all_poas
+                                tr
+                                    td #{poa.poa_id}
+                                    td #{poa.poa_name}
+                                    td #{poa.location}
+                                    td #{poa.POA_email}
+                                    td #{poa.POA_contact}
+                                    td #{poa.person_in_charge}
+                                    td #{poa.added_on}
+                                    td
+                                        a.btn.btn-md.mb-2(href="/poa/view_poa/"+ poa._id title="VIEW "+ poa.poa_name) 
+                                            i.fa.fa-eye.fa-2x
+                                    td
+                                        a.btn.btn-md.btn-primary.mb-2(href="/poa/edit_poa_form/"+ poa._id title="EDIT "+ poa.poa_name) 
+                                            i.fa.fa-edit
+                                    td
+                                        a.btn.btn-md.btn-danger.mb-2(href="/poa/delete_poa/"+ poa._id title="DELETE "+ poa.poa_name) 
+                                            i.fa.fa-trash
+                            else
+                                tr
+                                    td.text-center.text-danger(colspan = "7")
+                                        | NO POINTS OF ACCESS (P.O.A) HAVE BEEN REGISTERED
+                                        | <br/> <br/>
+                                        a.btn.btn-md.btn-primary(href="/poa/register_poa_form") Register A New Point Of Access
