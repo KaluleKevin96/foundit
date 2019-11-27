@@ -1,0 +1,44 @@
+doctype html
+html
+    head
+        link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T", crossorigin="anonymous")
+        title Missing Item Database
+    body
+    
+        div.row.justify-content-center
+            div.col-md-6
+                header.card-header
+                    //- a.float-right.btn.btn-outline-primary Log in
+                    h4.card-title Report For Missing Items
+                div.card-body
+                
+                 form(method="POST" action="/lostitem" )
+                    div.form-row
+                        div.col-sm-6.form-group
+                            label Name of Document Owner:
+                            input.form-control(name="name",type="text", placeholder="Name of Document Owner")
+                        
+                        div.col-sm-6.form-group
+                            label Enter Date of Birth On Document::
+                            input.form-control(name="date",type="text", placeholder=" Date of Birth On Document")
+                        
+                        div.col-sm-6.form-group
+                            label Enter Clients Contact:
+                            input.form-control(name="contact",type="text",placeholder="Clients Contacts")
+                                
+                    div.form-group    
+                        label CATEGORY OF ITEM:  (National id,Driving Permit,Transcript.....)
+                        input.form-control(name="catergory",type="text",placeholder="catergory chosen")
+                        small One category of item to be choosen
+                        
+                        div.form-group
+                        label Passport Number:
+                        input.form.form-control(type="text" name="passport",placeholder="Password number")
+
+                        
+
+
+                        
+                        div.form-group
+                        input.btn.btn-primary.btn-block(type="submit", value="submit")
+                        input.btn.btn-danger.btn-block(type="submit", value="cancel")

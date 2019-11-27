@@ -4,9 +4,9 @@ const path = require('path');
 const bodyParser = require('body-parser'); //requiring the body parse package (module)
 const session = require('express-session'); //importing express session package
 
-const back = require('express-back'); //express back module 
-const multer = require('multer');
-const fs = require('fs'); //importing the files system 
+// const back = require('express-back'); //express back module 
+// const multer = require('multer');
+// const fs = require('fs'); //importing the files system 
 
 //initialising the app
 const app = express();
@@ -30,25 +30,25 @@ app.set('view engine', 'pug');
 //defining the 'public' folder to be static
 app.use(express.static(path.join(__dirname, 'public')));
 
-//middleware to tell the application to use session
-app.use(session({
-    secret : "super secret",
-    resave : true,
-    saveUninitialized : false
-}))
+// //middleware to tell the application to use session
+// app.use(session({
+//     secret : "super secret",
+//     resave : true,
+//     saveUninitialized : false
+// }))
 
-app.use(back());
+// app.use(back());
 
-//middleware to assign session user object to locals of the app
-app.use((req , res , next) => {
+// //middleware to assign session user object to locals of the app
+// app.use((req , res , next) => {
 
-    if(req.session.user){
+//     if(req.session.user){
 
-        app.locals.loggedin_user = req.session.user;
-    }
+//         app.locals.loggedin_user = req.session.user;
+//     }
 
-    next();
-})
+//     next();
+// })
 
 //connect to databese
 mongoose.connect('mongodb://localhost:27017/found-it', { useNewUrlParser: true , useUnifiedTopology: true , useFindAndModify: false }, () => {
@@ -59,8 +59,19 @@ mongoose.connect('mongodb://localhost:27017/found-it', { useNewUrlParser: true ,
 //IMPORTING ROUTES 
 const documentRoute = require('./routes/documentRoutes');
 
+const registrationRoute = require('./routes/regRoute')
+app.use('/register', registrationRoute);
+
+//importing lost item routes:
+const lost_ItemRoute = require('./routes/lost-ItemRoute')
+app.use('/lostitem', lost_ItemRoute);
+
+//importing  post 
+
+
+
 //using the imported User Route
-app.use('/documents', documentRoute);
+// app.use('/documents', documentRoute);
 
 
 /* ------------------------- END OF MIDDLEWARE ----------------------------------------------------*
@@ -68,45 +79,47 @@ app.use('/documents', documentRoute);
 
 //ROUTES
 /*------------------------------------------------------------------------------------------------------------------------------*/
-app.get('/', async(req, res) => {
+// app.get('/', async(req, res) => {
 
-    //initial index function
+//     //initial index function
 
-    res.render("index" , { title : "LOST AND FOUND"})
+//     res.render("index" , { title : "LOST AND FOUND"})
    
-});
+// });
 
-app.get('/logout', (req, res) => {
+// app.get('/logout', (req, res) => {
 
-    if(req.session.user){
-        try{
+//     if(req.session.user){
+//         try{
 
-            req.session.destroy(() => {
+//             req.session.destroy(() => {
 
-                return res.redirect("/users/user_login");
-            });
+//                 return res.redirect("/users/user_login");
+//             });
     
 
-        }catch(err){
+//         }catch(err){
 
-            res.send("Failed to logout. \n " + err.toString())
+//             res.send("Failed to logout. \n " + err.toString())
 
-        }
+//         }
         
-    }else{
+//     }else{
 
-        return res.redirect("/users/user_login");
-    }
-});
+//         return res.redirect("/users/user_login");
+//     }
+// });
 
-/*----------------------------------------------------------------------------------------------------------------------------------*/
+// /*----------------------------------------------------------------------------------------------------------------------------------*/
 
-//error page handling for non existent paths
-app.get('*', (req, res) => {
+// //error page handling for non existent paths
+// app.get('*', (req, res) => {
 
-    res.send("<h1> ERROR!! ERROR!! <br/><br/> This Page Does Not Exist </h1>");
-    //<h1> ERROR!! ERROR!! <br/><br/> This Page Does Not Exist </h1>
-})
+//     res.send("<h1> ERROR!! ERROR!! <br/><br/> This Page Does Not Exist </h1>");
+//     //<h1> ERROR!! ERROR!! <br/><br/> This Page Does Not Exist </h1>
+// })
+
+
 
 
 //SERVER LISTEN
