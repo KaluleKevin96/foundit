@@ -4,7 +4,7 @@
 /package.json
 /routes/documentRoutes.js
 layout.pug
-layout2.pug
+
 /routes/post.js
 / routes/regRoute.js
 views/index.pug
