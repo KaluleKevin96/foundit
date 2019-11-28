@@ -6,26 +6,59 @@ const path = require('path');
 
 const bcrypt = require('bcrypt');
 
+const passport = require('passport'); //importing passport
+const AdministratorLocalStrategy = require('passport-local').Strategy;
+
 // importing the model that admins shall use
 const Administrator = require('../models/AdministratorModel');
 
 //current date
 const current_date = new Date();
 
+ passport.use('admin-local' , new AdministratorLocalStrategy(Administrator.authenticate()));
+passport.serializeUser(Administrator.serializeUser());
+passport.deserializeUser(Administrator.deserializeUser());
+
+/* passport.serializeUser(function(user, done) {
+    done(null, user.admin_id);
+  });
+  
+passport.deserializeUser(function(admin_id, done) {
+    Administrator.findOne({admin_id : admin_id}, function(err, user) {
+      done(err, user);
+    });
+  }); */
+
+/* passport.use('admin-local' , new AdministratorLocalStrategy(function(username , password , done ){
+    Administrator.findOne({ username : username }, function(err, user) {
+        // first method succeeded?
+        if (!err && user && passwordMatches(password)) {
+
+        return done(null, user);
+
+        }else{
+
+            return done(null , false)
+        }
+
+}); */
+
 
 //route to load the register administrator form
-router.get('/register_administrator_form' , (req,res) => {
+router.get('/register_administrator_form', checkAdminlogged_in , (req,res) => {
 
     //incoporate session code later
 
     res.render('administrators/register_administrator' , {
         
         title:"REGISTER ADMINISTRATOR",
+        user : req.user
     })
 
 });
 
-//POST route to insert admin into the database
+
+//POST route to insert admin into the database WITH PASSPORT
 router.post('/register_admin' , async(req,res) => {
 
     //incoporate session code later
@@ -73,7 +106,8 @@ var admin_id , autonumber , current_year ;
         admin_id = "A"+current_year.toString().slice(1,4)+"" +autonumber ;
     }
 
-    const inserted_administrator = new Administrator({
+    //passport registration function begins here
+    Administrator.register(new Administrator({
 
         admin_id : admin_id,
         first_name : req.body.first_name,
@@ -81,7 +115,6 @@ var admin_id , autonumber , current_year ;
         email : req.body.email,
         phone_contact : req.body.phone_contact,
         username: req.body.username,
-        password : req.body.password,
         autonumber : autonumber,
         year : current_year,
         status : "active",
@@ -89,46 +122,118 @@ var admin_id , autonumber , current_year ;
         added_by : (req.session.user) ? req.session.user.admin_id : admin_id,
         added_on : Date.now()
 
-    });
+    }) , req.body.password
+        ,function (err , account) {
 
-    try{
+            if(err){
+                //if there are any errors during registration , redirect to the registration form page
+                // console.log(err);
+                // console.log(account);
+                console.log(err.message)
+                
+                
+                return res.render('administrators/register_administrator' , {
+        
+                    title:"REGISTER ADMINISTRATOR",
+                    account : account,
+                    error_message : err.message
+                });
+            }
 
-        await inserted_administrator.save();
+            console.log(account);
 
-        // res.send("ADMIN successfully registered");
-
-        /* res.render("administrators/all_administrators" , {
-            
-            title : "ALL REGISTERED ADMINISTRATORS"
-        }) */
-
-        res.redirect("/administrators/all_administrators");
-
-    }
-    catch(error){
-
-        console.log(error);
-
-        res.status(500).send("Registration Failed. Error : "+error);
-    }
+            passport.authenticate('local')(req, res , function (){
+                
+                res.redirect("/administrators/all_administrators");
+            })
+        }
+    )
 
 
 });
+
+//route to load the administrator login form
+router.get('/admin_login', checkAdminlogged_out , (req,res) => {
+
+    //incoporate session code later
+// if(messages != undefined) {console.log(messages)}
+    res.render('administrators/admin_login' , {
+        
+        title:"ADMINISTRATOR LOG-IN",
+        user : req.user,
+    })
+
+});
+
+router.post('/admin_login', 
+  passport.authenticate('admin-local') , function(req , res){
+// console.log(req.user);
+
+                                    res.redirect('/administrators/all_administrators');
+                                 }
+);
 
 //route to load page that shows all administrators
 router.get('/all_administrators' , async(req,res) => {
 
     //incoporate session code later
-
+// console.log(req.user);
     var all_administrators = await Administrator.find();
-
+// console.log(req.user);
     res.render('administrators/all_administrators' , {
         
         title:"ALL REGISTERED ADMINISTRATORS",
-        all_administrators : all_administrators
+        all_administrators : all_administrators,
+        user : req.user
     })
 
 });
+
+//route for administrator to logout
+router.get('/admin_logout', checkAdminlogged_in , function(req, res) {
+    req.logout();
+    res.redirect('/administrators/admin_login');
+});
+
+//custom function that is going to be used as middleware to check if an administrator is logged in
+function checkAdminlogged_in (req , res , next){
+
+    var all_admins = Administrator.find();
+    
+    if(all_admins == undefined || all_admins == null || all_admins.length == 0){ //if it is first time setup and the first administrator is going to register
+
+        next();
+
+    }else{
+        
+        if(req.isAuthenticated()){ //if user is authenticated then go ahead and let them see the page
+
+            return next();
+
+        }else{
+
+            console.log("Please Log In To Continue");
+            return res.redirect('/administrators/admin_login');
+        }
+    }
+}
+
+//custom function that is going to be used as middleware to check if an administrator is not logged in
+//so that they are not allowed to go to the log in form
+function checkAdminlogged_out (req , res , next){
+        
+        if(req.isAuthenticated()){ //if user is authenticated then go ahead and let them see the page
+
+            console.log("Please Log Out To Continue");
+            return res.redirect('/administrators/all_administrators');
+            
+
+        }else{
+
+            return next();           
+        }
+    
+}
 
 
 module.exports = router;

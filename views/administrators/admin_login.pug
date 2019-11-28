@@ -1,0 +1,36 @@
+extends ../layout
+
+block content
+    div.container.pt-4
+            
+        if (info)
+            br
+            div.row.justify-content-center
+                div.col-md-3.error_messages.alert-danger
+                   | #{info}
+            hr
+        else 
+            div.empty-div
+            
+        div.row.justify-content-center
+            div.col-md-7
+                div.card
+                    header.card-header
+                        span.float-right.register_question.mt-1 No Account , &nbsp;&nbsp; 
+                            a.btn.btn-outline-success(href="/administrators/register_administrator_form") Register
+                        h4.card-title.mt-2 LOG IN
+                    article.card-body.row.justify-content-center
+                        form.form.col-md-6(name="login_form" action="/administrators/admin_login" method="POST")
+                            div.form-group
+                                label(for="username") Username
+                                input.form-control(name="username" id="username" placeholder="")
+                            
+
+                            div.form-group
+                                label(for="password") Password
+                                input.form-control(type="password" placeholder = " " name="password")
+                            
+                            small.form-text.text-muted Please fill in your username and password to log in
+
+                            div.form-group.text-center
+                                button.btn.btn-info.btn-md(type="submit") Login

@@ -2,11 +2,17 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser'); //requiring the body parse package (module)
+
 const session = require('express-session'); //importing express session package
+const flash = require('express-flash'); //importing express flash package
 
 const back = require('express-back'); //express back module 
 const multer = require('multer');
 const fs = require('fs'); //importing the files system 
+
+const passport = require('passport'); //importing passport
+const LocalStrategy = require('passport-local').Strategy;
+
 
 //initialising the app
 const app = express();
@@ -30,6 +36,9 @@ app.set('view engine', 'pug');
 //defining the 'public' folder to be static
 app.use(express.static(path.join(__dirname, 'public')));
 
+//middleware to use flash
+app.use(flash())
+ 
 //middleware to tell the application to use session
 app.use(session({
     secret : "super secret",
@@ -37,14 +46,33 @@ app.use(session({
     saveUninitialized : false
 }))
 
+//app using passport and initialzing it
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(back());
 
-//middleware to assign session user object to locals of the app
+
+// importing the model that admins shall use
+const Administrator = require('./models/AdministratorModel');
+
+
+
+//middleware to assign session object to locals of the app
 app.use((req , res , next) => {
 
     if(req.session.user){
 
         app.locals.loggedin_user = req.session.user;
+    
+    }
+    else if(req.user){
+
+        app.locals.loggedin_admin = req.user;
+    
+    }else if(req.session.poa){
+
+        app.locals.loggedin_poa = req.session.poa;
     }
 
     next();
@@ -56,7 +84,7 @@ mongoose.connect('mongodb://localhost:27017/found-it', { useNewUrlParser: true ,
 });
 
 
-//IMPORTING ROUTES 
+//IMPORTING  EXTERNAL ROUTES 
 const documentRoutes = require('./routes/documentRoutes');
 const poaRoutes = require('./routes/poaRoutes');
 const administratorRoutes = require('./routes/administratorRoutes');
@@ -84,6 +112,7 @@ app.get('/', async(req, res) => {
    
 });
 
+
 app.get('/logout', (req, res) => {
 
     if(req.session.user){
@@ -103,9 +132,11 @@ app.get('/logout', (req, res) => {
         
     }else{
 
-        return res.redirect("/users/user_login");
+        // return res.redirect("/users/user_login");
     }
 });
+
+
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 

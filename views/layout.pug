@@ -17,9 +17,31 @@ html(lang="en")
             
             button.navbar-toggler(type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation")
                 span.navbar-toggler-icon
-        
-            button.btn.btn-primary(type="button" data-toggle="modal" data-target="#login_modal")
-                | P.O.A LOGIN
+
+            if (user)
+                div.collapse.navbar-collapse.logged_in_user_dropdown#navbarSupportedContent
+                    ul.navbar-nav.ml-auto
+                        li.nav-item.dropdown
+                            a.nav-link.dropdown-toggle.text-uppercase#navbarDropdown(role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") #{user.last_name} #{user.first_name}
+                            div.dropdown-menu(aria-labelledby="navbarDropdown")
+                                a.dropdown-item(href="#")
+                                    | Edit your profile &nbsp;
+                                    i.fa.fa-edit                                    
+                                a.dropdown-item(href="/administrators/admin_logout")
+                                    | Logout &nbsp;
+                                    i.fas.fa-sign-out-alt 
+                                
+                                    
+            else if (poa)
+                div.collapse.navbar-collapse.logged_in_user_dropdown#navbarSupportedContent
+                    ul.navbar-nav.ml-auto
+                        li.nav-item.dropdown
+                            a.nav-link.dropdown-toggle#navbarDropdown(role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Some link
+                            div.dropdown-menu(aria-labelledby="navbarDropdown")
+                                a.dropdown-item(href="#") Link DropDown
+            else
+                button.btn.btn-primary(type="button" data-toggle="modal" data-target="#login_modal")
+                    | P.O.A LOGIN
 
         div.modal.fade#login_modal(tabindex = "-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true")
             div.modal-dialog.modal-dialog-centered(role = "document")
@@ -46,7 +68,7 @@ html(lang="en")
                     div.modal-footer
                         p
                             |Forgot Password ? &nbsp;&nbsp;
-                            a(href="#") Reset here
+                            a(href="") Reset here
                             
 
                         //- if (loggedin_user != undefined) 
@@ -55,6 +77,35 @@ html(lang="en")
                         
                         //- else
                         //-     span.empty-span
+        
+        if (user)
+            div.row.button_menu.text-center
+                div.col-md-2.col-2
+                    a.btn.btn-md.btn-outline-dark(href="/administrators/register_administrator_form") Register New Administrator
+                
+                div.col-md-2.col-2
+                    a.btn.btn-md.btn-outline-primary(href="/administrators/all_administrators") All Administrators
+
+                div.col-md-2.col-2
+                    a.btn.btn-md.btn-outline-success(href="/poa/register_poa_form") Register New Point Of Access
+                
+                div.col-md-2.col-2
+                    a.btn.btn-md.btn-outline-info(href="/poa/all_poas") All Points of Access
+        else if (poa)
+            div.row.button_menu.text-center
+                div.col-md-2.col-2
+                    a.btn.btn-md.btn-outline-dark Register New Lost Item
+                
+                div.col-md-2.col-2
+                    a.btn.btn-md.btn-outline-primary All Reported Items
+
+                div.col-md-2.col-2
+                    a.btn.btn-md.btn-outline-danger Lost Items
+                
+                div.col-md-2.col-2
+                    a.btn.btn-md.btn-outline-success Found Items
+        
+                
         div.page_content.pt-4
             block content
 

@@ -11,6 +11,27 @@ body {
     padding:1% 2%;
     background-color:lightgrey
 }
+
+.logged_in_user_dropdown{
+
+    /* color : red; */
+}
+
+.logged_in_user_dropdown ul li a {
+
+    cursor: pointer;
+}
+
+.logged_in_user_dropdown .dropdown-item {
+
+    border-bottom: 1px solid #ced4da;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.button_menu {
+    margin: 1.5% 0% 0% 5%;
+}
 /* styles from lost and found project css */
 
 .title {

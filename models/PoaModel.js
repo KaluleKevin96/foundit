@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+// const passportLocalMongoose = require('passport-local-mongoose');
 
 const PoaSchema = mongoose.Schema({
     poa_id:{
@@ -79,6 +80,24 @@ PoaSchema.pre('save' , function(next) {
     next();
 });
 
+    //authenticate input against database
+    PoaSchema.statics.authenticate = async function (username, password) {
+        const poa = await this.findOne({ username: username })
+        if (!poa) {
+            throw new Error('Point Of Access not found.');
+        }
+        const match = await bcrypt.compare(password, poa.password)
+
+        if (match) {
+           
+            return poa;
+        }else{
+
+            throw new Error('Log In Failed.');
+        }
+    }
+
+// PoaSchema.plugin(passportLocalMongoose);
 
 //exporting the model so that it can be accessed by the different routes
 module.exports = mongoose.model('Poa', PoaSchema);

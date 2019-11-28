@@ -12,6 +12,8 @@ block content
                     div.row
                         div.col-md-12
                             a.float-right.btn.btn-md.btn-outline-primary(href="/administrators/register_administrator_form") Register New Administrator
+                            if (user)
+                                | You are logged in as #{user.first_name}
                     br
                     div.table-responsive
                         table.table.table-hover

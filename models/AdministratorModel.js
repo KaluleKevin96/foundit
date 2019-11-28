@@ -1,6 +1,7 @@
 //this shall have the code that will interact with the database regarding Administrators
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const AdministratorSchema = mongoose.Schema({
     admin_id:{
@@ -33,7 +34,6 @@ const AdministratorSchema = mongoose.Schema({
     },
     password:{
         type:String,
-        required: [true , "Please Enter A Password for The Administrator"]
     },
     status:{
         type:String,
@@ -67,13 +67,15 @@ const AdministratorSchema = mongoose.Schema({
 
 
 //hashing the password before it is saved
-AdministratorSchema.pre('save' , function(next) {
+/* AdministratorSchema.pre('save' , function(next) {
 
     this.password = bcrypt.hashSync(this.password , 10);
 
     next();
 });
+ */
 
+AdministratorSchema.plugin(passportLocalMongoose);
 
 //exporting the model so that it can be accessed by the different routes
 module.exports = mongoose.model('Administrator', AdministratorSchema);
