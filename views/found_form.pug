@@ -1,0 +1,74 @@
+extends layout
+
+block content
+
+
+        
+        div.row.justify-content-center
+            div.col-md-6
+                header.card-header
+                    h4.card-title ENTER DETAILS ABOUT THE FOUND ITEM
+                div.card-body
+                    form(method="POST" action="/")
+                        div.form-row
+                            div.col-sm-6.form-group
+                                label  Name Of Owner:
+                                input.form-control(name="owner_name",type="text", placeholder="Enter name of item owner")
+                            
+                            div.col-sm-6.form-group
+                                label Category of Item:
+                                    select.form-control(name="item_category" type="text")
+                                        option(value=""  selected="") Select Item Category
+                                        option(value="all")  All Categories
+                                        option(value="national_id") National ID
+                                        option(value="passport") Passport
+                                        option(value="driving_permit") Driving Permit
+                                        option(value="academic_document") Academic Document
+                                        option(value="others") Others
+
+                            //- div.form-group    
+                            //-     label.custom-file-label.help-block(for="inputGroupFile01") Upload Picture of the Item:
+                            //-         input.form-control.custom-file#picture_of_item(name="picture",type="file",placeholder="Upload the Item picture",aria-describedby="inputGroupFileAddon01")
+                            //-         small Upload a  picture of the it
+                        //- div.form-group
+                        //-     label(for="Picture") Upload the Picture of the Item
+                        //-     div.input-group
+                        //-         div.input-group-prepend
+                        //-             div.input-group-text
+                        //-                 i.fa.fa-upload
+
+
+                        div.form-group    
+                            label Item Description: (optional)
+                            textarea.form-control.rounded-0(name="description",type="text",placeholder="Write a short description here" rows="4" cols="20")
+                            small Write a short description here
+
+                        
+                        div.form-row
+                            div.col-md-4.form-group    
+                                label Name of Finder:
+                                input.form-control(name="f_name" type="text" placeholder="Enter your names" required)
+
+                            div.col-md-4.form-group   
+                                label Finder's contact:
+                                input.form-control(name="f_phone" type="tel" placeholder="Enter your phone number" required)
+                            
+                            div.col-md-4.form-group   
+                                label Finder's Email:
+                                input.form-control(name="f_email" type="email" placeholder="Enter your Email aDress")
+ 
+                                    
+                        div.form-row
+                            div.col.form-group
+                                div.form-group
+                                    label  Place where the Item was FOUND :
+                                    input.form-control(name="place" type="text" placeholder="Place where the item was found" required)            
+                            
+                                div.form-group
+                                    label  Place where the Item is :
+                                    input.form-control(name="place" type="text" placeholder="Place where the item is" required)            
+                        div.form-row
+                            div.col.form-group    
+                                input.col-6.btn.btn-primary(type="submit", value="Submit")
+                            div.col.form-group 
+                                input.col-6.btn.btn-danger(type="reset", value="Reset Input")

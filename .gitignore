@@ -1,4 +1,14 @@
 /.vscode
 /dev-scripts
 /node_modules
+/package.json
+/routes/documentRoutes.js
+layout.pug
+
+/routes/post.js
+/ routes/regRoute.js
+views/index.pug
+
+bash.exe.stackdump
+indexModel.js
 /group-code

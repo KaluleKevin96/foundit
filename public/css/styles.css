@@ -1,0 +1,34 @@
+.bg{
+    background-image: url(/images/books.jpg);
+   
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.title {
+    font-weight: bolder;
+    font-family: Roboto,Monserrat,Verdana,Open Sans,sans-serif;
+    color: white;
+    font-size: 65px;
+    padding-top: 40px;
+}
+.homepage-buttons {
+    padding: 100px;
+    
+    
+}
+#lost{
+    padding: 15px;
+    font-size: 20px;
+}
+#found{
+    padding: 15px;
+    font-size: 20px;
+}
+
+
+
+
+.footer{
+    padding-top: 100px;
+}

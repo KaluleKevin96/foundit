@@ -9,6 +9,7 @@ html(lang="en")
         link(rel="stylesheet" href="/css/fontawesome/css/all.css")
     
         link(href="/css/mycss.css" type="text/css" rel="stylesheet")
+        link(href="/css/styles.css" type="text/css" rel="stylesheet")
 
         title #{title}
     body
@@ -32,7 +33,7 @@ html(lang="en")
                                     i.fas.fa-sign-out-alt 
                                 
                                     
-            else if (poa)
+            else if (loggedin_poa)
                 div.collapse.navbar-collapse.logged_in_user_dropdown#navbarSupportedContent
                     ul.navbar-nav.ml-auto
                         li.nav-item.dropdown

@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 // importing the model that poas shall use
 const Poa = require('../models/PoaModel');

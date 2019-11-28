@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const multer = require('multer');
-const bcrypt = require('bcrypt');//importing bcrypt module
+const bcrypt = require('bcryptjs');//importing bcrypt module
 
 // importing the model that documents shall use
 const Document = require('../models/DocumentsModel');

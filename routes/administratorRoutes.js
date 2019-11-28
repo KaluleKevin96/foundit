@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const passport = require('passport'); //importing passport
 const AdministratorLocalStrategy = require('passport-local').Strategy;

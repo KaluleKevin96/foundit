@@ -7,9 +7,10 @@
     "test": "jest",
     "start": "nodemon index.js"
   },
-  "author": "Kalule Kevin K",
+  "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "busboy-body-parser": "^0.3.2",
     "express": "^4.17.1",
     "mongoose": "^5.7.10",
@@ -17,7 +18,7 @@
     "pug": "^2.0.4"
   },
   "devDependencies": {
-    "bcrypt": "^3.0.7",
+    "bcryptjs": "^2.4.3",
     "express-back": "0.0.2",
     "express-flash": "0.0.2",
     "express-session": "^1.17.0",

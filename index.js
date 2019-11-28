@@ -20,6 +20,7 @@ const app = express();
 const mongoose = require('mongoose');
 
 //importing the Documents model 
+// const User = require('./models/IndexModel');
 const Document = require('./models/DocumentsModel');
 
 //MIDDLEWARES
@@ -61,7 +62,7 @@ const Administrator = require('./models/AdministratorModel');
 //middleware to assign session object to locals of the app
 app.use((req , res , next) => {
 
-    if(req.session.user){
+   if(req.session.user){
 
         app.locals.loggedin_user = req.session.user;
     
@@ -75,8 +76,8 @@ app.use((req , res , next) => {
         app.locals.loggedin_poa = req.session.poa;
     }
 
-    next();
-})
+     next();
+ })
 
 //connect to databese
 mongoose.connect('mongodb://localhost:27017/found-it', { useNewUrlParser: true , useUnifiedTopology: true , useFindAndModify: false }, () => {
@@ -85,6 +86,12 @@ mongoose.connect('mongodb://localhost:27017/found-it', { useNewUrlParser: true ,
 
 
 //IMPORTING  EXTERNAL ROUTES 
+//IMPORTING ROUTES 
+const IndexRoute = require('./routes/indexRoutes');
+
+//using the imported homepage Route
+app.use('/index', IndexRoute);
+
 const documentRoutes = require('./routes/documentRoutes');
 const poaRoutes = require('./routes/poaRoutes');
 const administratorRoutes = require('./routes/administratorRoutes');
@@ -92,12 +99,27 @@ const administratorRoutes = require('./routes/administratorRoutes');
 //using the imported Documents Route
 app.use('/documents', documentRoutes);
 
+const registrationRoute = require('./routes/regRoute')
+app.use('/register', registrationRoute);
+
+//importing lost item routes:
+const lost_ItemRoute = require('./routes/lost-ItemRoute')
+app.use('/lostitem', lost_ItemRoute);
+
+//importing  post 
+
+
+
+//using the imported User Route
+// app.use('/documents', documentRoute);
 //using the imported Point of access Routes
 app.use('/poa', poaRoutes);
 
 //using the imported Administrator Routes
 app.use('/administrators', administratorRoutes);
 
+const foundRoute = require('./routes/foundRoutes');
+app.use('/found_form', foundRoute);
 
 /* ------------------------- END OF MIDDLEWARE ----------------------------------------------------*
 
@@ -115,35 +137,36 @@ app.get('/', async(req, res) => {
 
 app.get('/logout', (req, res) => {
 
-    if(req.session.user){
-        try{
+//     if(req.session.user){
+//         try{
 
-            req.session.destroy(() => {
+//             req.session.destroy(() => {
 
-                return res.redirect("/users/user_login");
-            });
+//                 return res.redirect("/users/user_login");
+//             });
     
 
-        }catch(err){
+//         }catch(err){
 
-            res.send("Failed to logout. \n " + err.toString())
+//             res.send("Failed to logout. \n " + err.toString())
 
-        }
+//         }
         
-    }else{
+//     }else{
 
         // return res.redirect("/users/user_login");
-    }
+
 });
 
 
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
+
 //error page handling for non existent paths
 app.get('*', (req, res) => {
 
-    res.status(404).send();
+    res.send("Page Not Found");
     //<h1> ERROR!! ERROR!! <br/><br/> This Page Does Not Exist </h1>
 })
 
