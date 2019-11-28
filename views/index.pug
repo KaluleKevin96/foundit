@@ -1,46 +1,12 @@
-doctype html
-html
-    head
-        link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T", crossorigin="anonymous")
-        title Registration at Point of Access
-    body
-        div.row.justify-content-center
-            div.col-md-6
-                header.card-header
-                    a.float-right.btn.btn-outline-primary Log in
-                    h4.card-title P.O.A Registration
-                div.card-body
-                
-                 form(method="POST" action="/register" )
-                    div.form-row
-                        div.col-sm-6.form-group
-                            label P.O.A id:
-                            input.form-control(name="poa-id",type="text", placeholder="Point of access id")
-                        
-                        div.col-sm-6.form-group
-                            label P.O.A Location:
-                            input.form-control(name="poa-location",type="text", placeholder="Point of access location")
-                        
-                        div.col-sm-6.form-group
-                            label P.O.A Personel:
-                            input.form-control(name="poa-personel",type="text",placeholder="Point of access personel")
-                                
-                    div.form-group    
-                        label P.O.A Email :
-                        input.form-control(name="email",type="email",placeholder="Enter your Email")
-                        small We'll never share your email with anyone else
-                        
-                        div.form-group
-                        label Username:
-                        input.form.form-control(type="text" name="username")
-
-                        div.form-group
-                        label Create Password:
-                        input.form.form-control(type="password" name="password")
-
-                   
-                        
-                 
-                        
-                        div.form-group
-                        input.btn.btn-primary.btn-block(type="submit", value="Register")
+extends layout
+block content 
+    div.bg
+        div.container
+            div.row
+                div.col-lg-12
+                    h2.title An Easier Way To Recover Your Lost Documents
+            div.row.homepage-buttons
+                div.col-md-6
+                    a#lost.btn.btn-info.homepage-buttons(href="#") Have you Lost Something?
+                div.col-md-6
+                    a#found.btn.btn-danger.homepage-buttons(href="/found_form") Have you Found Something?

@@ -1,7 +1,6 @@
 /.vscode
 /dev-scripts
 /node_modules
-/package-lock.json
 /package.json
 /routes/documentRoutes.js
 layout.pug
@@ -10,3 +9,6 @@ layout2.pug
 / routes/regRoute.js
 views/index.pug
 
+bash.exe.stackdump
+indexModel.js
+/group-code

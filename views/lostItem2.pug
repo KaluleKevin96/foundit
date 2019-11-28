@@ -1,6 +1,10 @@
-extends layout
-
-block content 
+doctype html
+html
+    head
+        link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T", crossorigin="anonymous")
+        title Missing Item Database
+    body
+    
         div.row.justify-content-center
             div.col-md-6
                 header.card-header
@@ -31,10 +35,10 @@ block content
                         label Passport Number:
                         input.form.form-control(type="text" name="passport",placeholder="Enter Passport number")
 
-                        br
+                        
 
 
                         
                         div.form-group
-                            input.btn.btn-dark.btn-block(type="submit", value="submit")
-                            input.btn.btn-secondary.btn-block(type="submit", value="cancel")
+                        input.btn.btn-dark.btn-block(type="submit", value="submit")
+                        input.btn.btn-secondary.btn-block(type="submit", value="cancel")

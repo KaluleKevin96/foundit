@@ -18,10 +18,12 @@
     "pug": "^2.0.4"
   },
   "devDependencies": {
+    "bcryptjs": "^2.4.3",
     "express-back": "0.0.2",
     "express-session": "^1.17.0",
     "jest": "^24.9.0",
     "jest-cli": "^24.9.0",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "serve-favicon": "^2.5.0"
   }
 }

@@ -1,7 +1,7 @@
 //this shall have the code that will interact with the database regarding Documents
 
 const mongoose = require('mongoose');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const DocumentSchema = mongoose.Schema({
     POA_id:String,

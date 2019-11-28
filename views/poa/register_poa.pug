@@ -1,0 +1,66 @@
+extends ../layout
+
+block content
+
+        div.row.justify-content-center
+            div.col-md-6.card
+                header.card-header.header
+                    div.title
+                        h1(style="font-size:120%;") POINT OF ACCESS (P.O.A) REGISTRATION
+
+                div.card-body.search_form    
+                    div.row
+                        div.col-md-12
+                            a.float-right.btn.btn-md.btn-outline-success(href="/poa/all_poas") Registered P.O.A's
+
+                    form(method="POST" action="/poa/register_poa" )
+                        div.form-row
+                            span.form_section_title.text-center ABOUT THE POINT OF ACCESS
+                            br
+                            div.col-sm-6.form-group
+                                label Given Name :
+                                input.form-control(name="poa_name",type="text", placeholder=" eg.. Muyenga Police Station")
+                                small.text-muted The Name by which the point of access can be easily recognized.
+                            
+                            div.col-sm-4.form-group
+                                label Location:
+                                input.form-control(name="poa_location",type="text", placeholder="eg.. Ntinda")
+                            
+
+                        div.form-row
+                            span.form_section_title.text-center POINT OF ACCESS CONTACT INFORMATION
+                            br
+                            div.form-group.col-md-5
+                                label Person In Charge:
+                                input.form-control(type="text" name="person_in_charge" placeholder="eg.. John Doe")
+                                small.text-muted The name of the person that shall be in charge at the P.O.A
+
+                            div.form-group.col-md-4    
+                                label Official Email :
+                                input.form-control(type ="email",name ="poa_email",placeholder="eg.. example@gmail.com")
+                                small.text-muted The official email that the point of access uses for communication
+                                
+                            div.form-group.col-md-3
+                                label Official Contact:
+                                input.form-control(type="tel" name="poa_contact" placeholder="eg.. 0772123456")
+                                small.text-muted The official Contact that the point of access uses for communication
+
+                        div.form-row
+                            span.form_section_title.text-center SECURITY CREDENTIALS        
+                            br                 
+                            div.form-group.col-md-4
+                                label Username:
+                                input.form-control(type="text" name="username" placeholder="eg.. username1234")
+
+                            div.col-md-4.offset-2
+                                div.form-group
+                                    label Associated Password:
+                                    input.form.form-control(type="password" name="password")
+                                
+                                div.form-group
+                                    label Confirm Password:
+                                    input.form.form-control(type="password" name="confirm_password")                        
+                 
+                        
+                        div.form-group
+                            input.btn.btn-success.btn-lg.ml-5(type="submit", value="Register P.O.A")
