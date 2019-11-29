@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 // importing the model that poas shall use
 const Poa = require('../models/PoaModel');
@@ -161,11 +161,13 @@ router.post('/poa_login', async (req, res) => {
            //create session
            req.session.poa = poa ;
             
+           console.log(req.session.poa);
            //redirect to the point of access landing page
-            return res.redirect("/poa/poa_landing_page")
+            return res.redirect("/poa")
     
         }catch(err){
-    
+            
+            console.log(err);
             //res.send("Login Failed")
     //if failed then take the user back to the login page
             res.render('index' , {
@@ -193,6 +195,32 @@ router.get('/all_poas', checkAdminlogged_in , async(req,res) => {
 
 });
 
+
+//get route to log poa out
+router.get('/poa_logout', (req, res) => {
+
+    if(req.session.poa){
+        try{
+
+            req.session.destroy(() => {
+
+                return res.redirect("/");
+            });
+    
+
+        }catch(err){
+
+            res.send("Failed to logout. \n " + err.toString())
+
+        }
+        
+    }else{
+
+        return res.redirect("/poa");
+    }
+});
+
+
 //custom function that is going to be used as middleware to check if an administrator is logged in
 function checklogged_in (req , res , next){
         
@@ -203,7 +231,7 @@ function checklogged_in (req , res , next){
         }else{
 
             console.log("Please Log In To Continue");
-            return res.redirect('/administrators/admin_login');
+            return res.redirect('/');
         }
     
 }
@@ -227,14 +255,6 @@ function checklogged_out (req , res , next){
 //custom function that is going to be used as middleware to check if an administrator is logged in
 function checkAdminlogged_in (req , res , next){
 
-    var all_admins = Administrator.find();
-    
-    if(all_admins == undefined || all_admins == null || all_admins.length == 0){ //if it is first time setup and the first administrator is going to register
-
-        next();
-
-    }else{
-        
         if(req.isAuthenticated()){ //if user is authenticated then go ahead and let them see the page
 
             return next();
@@ -242,9 +262,9 @@ function checkAdminlogged_in (req , res , next){
         }else{
 
             console.log("Please Log In To Continue");
-            return res.redirect('/administrators/admin_login');
+            return res.redirect('/');
         }
-    }
+    
 }
 
 //custom function that is going to be used as middleware to check if an administrator is not logged in
@@ -254,7 +274,7 @@ function checkAdminlogged_out (req , res , next){
         if(req.isAuthenticated()){ //if user is authenticated then go ahead and let them see the page
 
             console.log("Please Log Out To Continue");
-            return res.redirect('/administrators/all_administrators');
+            return res.redirect('/administrators/all_adminstrators');
             
 
         }else{

@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+    style.
+        body{
+            padding:0%;
+            margin:0%;
+        }
+
+        .button_menu{
+            display:none;
+        }
+
+    div.bg
+        div.container
+            div.row
+                div.col-lg-12
+                    h2.title #{loggedin_poa.poa_name}
+            div.row.homepage-buttons
+                div.col-md-6
+                    a#lost.btn.btn-danger.homepage-buttons(href="/lostitem") Report Lost Document  
+
+                    br
+                    br
+                    br
+                    a#lost.btn.btn-info.homepage-buttons(href="/lostitem/all_items") All Lost Documents
+                        
+                div.col-md-6
+                    a#found.btn.btn-dark.homepage-buttons(href="/found_form") Report Found Document
+
+                    br
+                    br
+                    br
+                    a#found.btn.btn-success.homepage-buttons(href="/found_form") Report Found Document

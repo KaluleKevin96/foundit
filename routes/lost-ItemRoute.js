@@ -5,27 +5,32 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 
-// importing the model that users shall use
-const User = require('../models/lostModel');
+// importing the model that Lostitemss shall use
+const Lostitems = require('../models/lostModel');
 
 //renders a page that shows the Report of the missing items
-router.get('/', (req,res)=>{
-    res.render('lostItem' , { title : "REPORT LOST ITEM" })
+router.get('/', checklogged_in , (req,res)=>{
+    res.render('lostItem' , { 
+        title : "REPORT LOST ITEM",
+        poa : req.session.poa
+
+})
 
 })
 //renders the data base form of the missing items
-router.get('/all-items', async(req,res)=>{
+router.get('/all_items', checklogged_in, async(req,res)=>{
     
-   var users = await User.find();
+   var lostitems = await Lostitems.find();
 
-    res.render('layout2' , { title : "REPORT LOST ITEM" , users:users})
+    res.render('layout2' , { title : "ALL REPORTED LOST DOCUMENTS" , lostitems:lostitems})
 
 })
-//post  route that inserts a user into the database
+
+//post  route that inserts a lost item into the database
 router.post('/', async(req, res) => {
                          
 //creating the model / document 
-const user_model = new User({
+const Lostitems_model = new Lostitems({
     Name_of_Document_Owner: req.body.name,
     Enter_Date_of_Birth_On_Document: req.body.date,
     Enter_Clients_Contact: req.body.contact,
@@ -34,9 +39,9 @@ const user_model = new User({
 });
 try{
 
-    await user_model.save();
+    await Lostitems_model.save();
 
-    res.redirect("/lostitem/all-items");
+    res.redirect("/lostitem/all_items");
 
 }
 catch(error){
@@ -56,4 +61,67 @@ catch(error){
  
 });
 
+
+//custom function that is going to be used as middleware to check if an administrator is logged in
+function checklogged_in (req , res , next){
+        
+    if(req.session.poa){ //session created using normal express session
+
+        return next();
+
+    }else{
+
+        console.log("Please Log In To Continue");
+        return res.redirect('/');
+    }
+
+}
+
+//custom function that is going to be used as middleware to check if an administrator is not logged in
+//so that they are not allowed to go to the log in form
+function checklogged_out (req , res , next){
+    
+  if(req.session.poa){ //session created using normal express session
+
+        console.log("Please Log Out To Continue");
+        return res.redirect('/poa');
+
+    }else{
+
+        return next();           
+    }
+
+}
+
+//custom function that is going to be used as middleware to check if an administrator is logged in
+function checkAdminlogged_in (req , res , next){
+
+    if(req.isAuthenticated()){ //if Lostitems is authenticated then go ahead and let them see the page
+
+        return next();
+
+    }else{
+
+        console.log("Please Log In To Continue");
+        return res.redirect('/');
+    }
+
+}
+
+//custom function that is going to be used as middleware to check if an administrator is not logged in
+//so that they are not allowed to go to the log in form
+function checkAdminlogged_out (req , res , next){
+    
+    if(req.isAuthenticated()){ //if Lostitems is authenticated then go ahead and let them see the page
+
+        console.log("Please Log Out To Continue");
+        return res.redirect('/administrators/all_adminstrators');
+        
+
+    }else{
+
+        return next();           
+    }
+
+}
 module.exports = router;

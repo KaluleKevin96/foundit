@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const multer = require('multer');
-const bcrypt = require('bcryptjs');//importing bcrypt module
+const bcrypt = require('bcrypt');//importing bcrypt module
 
 
-router.get('/', (req, res) => {
+router.get('/',checklogged_in, (req, res) => {
     res.render('found_form')
 })
 
@@ -20,5 +20,21 @@ router.post('/', async(req, res) => {
         // res.redirect('register')
     }
 })
+
+
+//custom function that is going to be used as middleware to check if an administrator is logged in
+function checklogged_in (req , res , next){
+        
+    if(req.session.poa){ //session created using normal express session
+
+        return next();
+
+    }else{
+
+        console.log("Please Log In To Continue");
+        return res.redirect('/');
+    }
+
+}
 
 module.exports = router;

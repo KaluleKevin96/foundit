@@ -1,27 +1,31 @@
 
 extends layout
+
 block content 
     div.row.justify-content-center
         div.col-md-6
             div.card.body
-                    header.card-header
-                    h4.card-title Missing Document Report Record
-                    table.table 
-                        thead.thead-dark
-                            tr  
-                                th Name of Owner
-                                th Enter Date
-                                th Clients Contact                
-                                th Catergory of Item
-                                th Passport Number                                   
-                            tbody
-                            each user in users 
-                                tr
-                                    td #{user.Name_of_Document_Owner}
-                                    td #{user. Enter_Date_of_Birth_On_Document}
-                                    td #{user.Enter_Clients_Contact} 
-                                    td #{user.CATEGORY_OF_ITEM} 
-                                    td #{user. Passport_Number}
+                header.card-header
+                    h4.card-title.text-center All Documents Reported Lost
+                table.table 
+                    thead.thead-dark
+                        tr  
+                            th Name of Owner
+                            th Enter Date
+                            th Clients Contact                
+                            th Catergory of Item
+                            th Passport Number                                   
+                    tbody
+                    each item in lostitems 
+                        tr
+                            td #{item.Name_of_Document_Owner}
+                            td #{item. Enter_Date_of_Birth_On_Document}
+                            td #{item.Enter_Clients_Contact} 
+                            td #{item.CATEGORY_OF_ITEM} 
+                            td #{item. Passport_Number}
+                    else
+                        tr
+                            td.text-info.text-center(colspan="5") NO DOCUMENTS HAVE BEEN REPORTED LOST YET
 
                                          
                                         

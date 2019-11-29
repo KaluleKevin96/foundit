@@ -1,5 +1,11 @@
 extends layout
-block content 
+block content
+    style.
+        body{
+            padding:0%;
+            margin:0%;
+        }
+
     div.bg
         div.container
             div.row
@@ -7,6 +13,9 @@ block content
                     h2.title An Easier Way To Recover Your Lost Documents
             div.row.homepage-buttons
                 div.col-md-6
-                    a#lost.btn.btn-info.homepage-buttons(href="#") Have you Lost Something?
+                    a#lost.btn.btn-info.homepage-buttons(href="#")                        
+                        | Search &nbsp;
+                        i.fa.fa-search 
+                        | <br/> For something you may have lost 
                 div.col-md-6
-                    a#found.btn.btn-danger.homepage-buttons(href="/found_form") Have you Found Something?
+                    a#found.btn.btn-success.homepage-buttons(href="/found_form") Have you Found Something?
